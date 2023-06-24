@@ -5,6 +5,7 @@ import { loadGames } from "../redux/actionsAction.js/gamesActions";
 import Game from "../components/Game";
 import { styled } from "styled-components";
 import { motion } from "framer-motion";
+import GameDetail from "../components/GameDetail";
 
 export default function Home() {
   // Dispatch
@@ -14,10 +15,11 @@ export default function Home() {
     dispatch(loadGames());
   }, [dispatch]);
   const games = useSelector((state) => state.games);
-
+  const { screen } = useSelector((state) => state.detail);
   return (
     <>
       <GameList>
+        {screen.results?.length > 0 ? <GameDetail /> : ""}
         <h2>Upcoming Games </h2>
         <Game popular={games.upcoming} />
       </GameList>

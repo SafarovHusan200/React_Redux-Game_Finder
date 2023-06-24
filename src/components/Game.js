@@ -1,23 +1,24 @@
 import { motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import Loading from "./Loading";
 import { useDispatch } from "react-redux";
 import { loadDetail } from "../redux/actionsAction.js/detailsAction";
-import { useParams } from "react-router-dom";
 
 export default function Game({ popular }) {
-  // Load Details
-  const id = useParams();
   const dispatch = useDispatch();
+  // Load Details
 
-  useEffect(() => {});
+  const loadDetailHandler = (id) => {
+    dispatch(loadDetail(id));
+  };
+
   return (
     <GamesStyle>
       {popular.length > 0 ? (
         popular.map((item, index) => {
           return (
-            <GameStyle>
+            <GameStyle key={item.id} onClick={() => loadDetailHandler(item.id)}>
               <h3>Game name: {item.name}</h3>
               <p>Released Date: {item.released}</p>
               <img src={item.background_image} alt="" />
